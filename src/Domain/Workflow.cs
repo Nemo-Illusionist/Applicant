@@ -40,7 +40,6 @@ public sealed class Workflow
         CheckCompleted();
         CheckCurrentStep(user);
 
-        //todo add log params
         _workflowLogs.Add(new WorkflowLog());
 
         if (CurrentStepNumber == _steps.Count)
@@ -58,7 +57,6 @@ public sealed class Workflow
         CheckCompleted();
         CheckCurrentStep(user);
 
-        //todo add log params
         _workflowLogs.Add(new WorkflowLog());
         IsCompleted = true;
 
