@@ -13,6 +13,14 @@ public sealed class Workflow
         IsCompleted = false;
     }
 
+    internal Workflow(Workflow workflow)
+    {
+        _steps = workflow._steps.Select(step => new WorkflowStep(step)).ToList();
+        _workflowLogs = new List<WorkflowLog>();
+        CurrentStepNumber = 0;
+        IsCompleted = false;
+    }
+
     public int CurrentStepNumber { get; private set; }
     public bool IsCompleted { get; private set; }
     public IReadOnlyCollection<WorkflowLog> Logs => _workflowLogs;
@@ -61,6 +69,16 @@ public sealed class Workflow
         IsCompleted = true;
 
         return ApplicantStatus.Rejected;
+    }
+
+    internal void Restart(User user)
+    {
+        ArgumentNullException.ThrowIfNull(user);
+
+        CurrentStepNumber = 0;
+        IsCompleted = false;
+
+        _workflowLogs.Add(new WorkflowLog());
     }
 
     private void CheckCurrentStep(User user)

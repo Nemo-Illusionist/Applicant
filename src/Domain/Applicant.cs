@@ -18,6 +18,14 @@ public sealed class Applicant
         Status = ApplicantStatus.InProgress;
     }
 
+    public Applicant(User author, ApplicantDocument document, Workflow workflowTemplate)
+        : this(author, document)
+    {
+        ArgumentNullException.ThrowIfNull(workflowTemplate);
+
+        Workflow = new Workflow(workflowTemplate);
+    }
+
     private Applicant()
     {
     }

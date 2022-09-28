@@ -22,6 +22,15 @@ public sealed record WorkflowStep
         Role = role;
     }
 
+    internal WorkflowStep(WorkflowStep workflowStep)
+    {
+        ArgumentNullException.ThrowIfNull(workflowStep);
+
+        Order = workflowStep.Order;
+        Role = workflowStep.Role;
+        User = workflowStep.User;
+    }
+
     public bool IsCanApprove(User user)
     {
         ArgumentNullException.ThrowIfNull(user);
